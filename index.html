@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style id="nuxt-ui-colors">
+    :root {
+      --color-primary-50: 248 250 252;
+      --color-primary-100: 241 245 249;
+      --color-primary-200: 226 232 240;
+      --color-primary-300: 203 213 225;
+      --color-primary-400: 148 163 184;
+      --color-primary-500: 100 116 139;
+      --color-primary-600: 71 85 105;
+      --color-primary-700: 51 65 85;
+      --color-primary-800: 30 41 59;
+      --color-primary-900: 15 23 42;
+      --color-primary-950: 2 6 23;
+      --color-primary-DEFAULT: var(--color-primary-500);
+
+      --color-gray-50: 249 250 251;
+      --color-gray-100: 243 244 246;
+      --color-gray-200: 229 231 235;
+      --color-gray-300: 209 213 219;
+      --color-gray-400: 156 163 175;
+      --color-gray-500: 107 114 128;
+      --color-gray-600: 75 85 99;
+      --color-gray-700: 55 65 81;
+      --color-gray-800: 31 41 55;
+      --color-gray-900: 17 24 39;
+      --color-gray-950: 3 7 18;
+    }
+
+    .dark {
+      --color-primary-DEFAULT: var(--color-primary-400);
+    }
+  </style>
+  <title>키워드 검색량 조회, 플레이스 웹사이트 상위 전문ㅣJW마케팅</title>
+  <link rel="icon" type="image/png" href>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  <style id="vuetify-theme-stylesheet">
+    :root {
+      --v-theme-background: 255, 255, 255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255, 255, 255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255, 255, 255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66, 66, 66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238, 238, 238;
+      --v-theme-primary: 24, 103, 192;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31, 85, 146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 72, 169, 166;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1, 135, 134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 176, 0, 32;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-on-background: 0, 0, 0;
+      --v-theme-on-surface: 0, 0, 0;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+
+    .v-theme--light {
+      color-scheme: normal;
+      --v-theme-background: 255, 255, 255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255, 255, 255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255, 255, 255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66, 66, 66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238, 238, 238;
+      --v-theme-primary: 24, 103, 192;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31, 85, 146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 72, 169, 166;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1, 135, 134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 176, 0, 32;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-on-background: 0, 0, 0;
+      --v-theme-on-surface: 0, 0, 0;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+
+    .v-theme--dark {
+      color-scheme: dark;
+      --v-theme-background: 18, 18, 18;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 33, 33, 33;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 204, 191, 214;
+      --v-theme-surface-bright-overlay-multiplier: 2;
+      --v-theme-surface-variant: 163, 163, 163;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 66, 66, 66;
+      --v-theme-primary: 33, 150, 243;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 39, 124, 193;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 84, 182, 178;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 72, 169, 166;
+      --v-theme-secondary-darken-1-overlay-multiplier: 2;
+      --v-theme-error: 207, 102, 121;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 2;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 2;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 2;
+      --v-theme-on-background: 255, 255, 255;
+      --v-theme-on-surface: 255, 255, 255;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 255, 255, 255;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 1;
+      --v-medium-emphasis-opacity: 0.7;
+      --v-disabled-opacity: 0.5;
+      --v-idle-opacity: 0.1;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.16;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 52, 52, 52;
+      --v-theme-on-code: 204, 204, 204;
+    }
+
+    .bg-background {
+      --v-theme-overlay-multiplier: var(--v-theme-background-overlay-multiplier);
+      background-color: rgb(var(--v-theme-background)) !important;
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+
+    .bg-surface {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface)) !important;
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+
+    .bg-surface-bright {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-bright-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-bright)) !important;
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+
+    .bg-surface-variant {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-variant-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-variant)) !important;
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+
+    .bg-primary {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+
+    .bg-primary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+
+    .bg-secondary {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary)) !important;
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+
+    .bg-secondary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+
+    .bg-error {
+      --v-theme-overlay-multiplier: var(--v-theme-error-overlay-multiplier);
+      background-color: rgb(var(--v-theme-error)) !important;
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+
+    .bg-info {
+      --v-theme-overlay-multiplier: var(--v-theme-info-overlay-multiplier);
+      background-color: rgb(var(--v-theme-info)) !important;
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+
+    .bg-success {
+      --v-theme-overlay-multiplier: var(--v-theme-success-overlay-multiplier);
+      background-color: rgb(var(--v-theme-success)) !important;
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+
+    .bg-warning {
+      --v-theme-overlay-multiplier: var(--v-theme-warning-overlay-multiplier);
+      background-color: rgb(var(--v-theme-warning)) !important;
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+
+    .text-background {
+      color: rgb(var(--v-theme-background)) !important;
+    }
+
+    .border-background {
+      --v-border-color: var(--v-theme-background);
+    }
+
+    .text-surface {
+      color: rgb(var(--v-theme-surface)) !important;
+    }
+
+    .border-surface {
+      --v-border-color: var(--v-theme-surface);
+    }
+
+    .text-surface-bright {
+      color: rgb(var(--v-theme-surface-bright)) !important;
+    }
+
+    .border-surface-bright {
+      --v-border-color: var(--v-theme-surface-bright);
+    }
+
+    .text-surface-variant {
+      color: rgb(var(--v-theme-surface-variant)) !important;
+    }
+
+    .border-surface-variant {
+      --v-border-color: var(--v-theme-surface-variant);
+    }
+
+    .on-surface-variant {
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+
+    .text-primary {
+      color: rgb(var(--v-theme-primary)) !important;
+    }
+
+    .border-primary {
+      --v-border-color: var(--v-theme-primary);
+    }
+
+    .text-primary-darken-1 {
+      color: rgb(var(--v-theme-primary-darken-1)) !important;
+    }
+
+    .border-primary-darken-1 {
+      --v-border-color: var(--v-theme-primary-darken-1);
+    }
+
+    .text-secondary {
+      color: rgb(var(--v-theme-secondary)) !important;
+    }
+
+    .border-secondary {
+      --v-border-color: var(--v-theme-secondary);
+    }
+
+    .text-secondary-darken-1 {
+      color: rgb(var(--v-theme-secondary-darken-1)) !important;
+    }
+
+    .border-secondary-darken-1 {
+      --v-border-color: var(--v-theme-secondary-darken-1);
+    }
+
+    .text-error {
+      color: rgb(var(--v-theme-error)) !important;
+    }
+
+    .border-error {
+      --v-border-color: var(--v-theme-error);
+    }
+
+    .text-info {
+      color: rgb(var(--v-theme-info)) !important;
+    }
+
+    .border-info {
+      --v-border-color: var(--v-theme-info);
+    }
+
+    .text-success {
+      color: rgb(var(--v-theme-success)) !important;
+    }
+
+    .border-success {
+      --v-border-color: var(--v-theme-success);
+    }
+
+    .text-warning {
+      color: rgb(var(--v-theme-warning)) !important;
+    }
+
+    .border-warning {
+      --v-border-color: var(--v-theme-warning);
+    }
+
+    .on-background {
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+
+    .on-surface {
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+
+    .on-surface-bright {
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+
+    .on-primary {
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+
+    .on-primary-darken-1 {
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+
+    .on-secondary {
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+
+    .on-secondary-darken-1 {
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+
+    .on-error {
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+
+    .on-info {
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+
+    .on-success {
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+
+    .on-warning {
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+  </style>
+  <link rel="canonical" href="https://www.jw-marketing.co.kr/">
+  <meta name="naver-site-verification" content="c1125c30ff54964fe1f87c44f88c5d544477634d">
+  <meta name="google-site-verification" content="qSOdePQ2P6BaXqqUpFGV-9jcqoAv1dEnvKFXoGvllHo">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+  <link rel="stylesheet" href="./css/style.css">
+  <!-- <script src="https://www.googletagmanager.com/gtag/js?id=G-VL0VEGLM60" defer></script>
+  <script>  window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VL0VEGLM60');</script> -->
+  <meta name="description"
+    content="JW마케팅 순위 검색 서비스, 무제한 무료 제공! JW마케팅과 함께 경쟁에서 앞서가고, 비용 부담 없이 고객을 사로잡으세요. 키워드 검색 ,홍보마케팅, 블로그관리대행 , 검색 광고 , 병원마케팅 , 병원광고, SEO , 웹사이트 상위노출, 플레이스 상위노출 , 바이럴마케팅 , 검색엔진 최적화">
+  <meta name="keywords" content="마케팅, 키워드 검색량 조회,검색엔진 최적화,백링크,플레이스 순위,병원 마케팅,플레이스 상위노출,웹사이트 상위노출,상위노출 업체,키워드분석">
+
+
+
+
+
+
+  <!-- 
+  <link rel="stylesheet" href="/_nuxt/entry.Dcr7Ssjt.css">
+  <link rel="stylesheet" href="/_nuxt/index.B0a9OMnn.css">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/Di6I4_Kl.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/_L79Zp-S.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/B8dISNbw.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/Cn2uVju1.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiLVA1TM.js">
+  <link rel="modulepreload" as="script" crossorigin href=" /_nuxt/CNGFlh_p.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/CtRPN-tv.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BAn6b242.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DQ_L3RiF.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/aW66Tbv5.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/COXsAi05.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/ltMdS-79.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BGfXowyW.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DZHPpzpo.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BmjRO_Ln.js">
+  <link rel="prefetch" as="script" crossorigin href="/_nuxt/BAw1VOW_.js">
+  <link rel="prefetch" as="script" crossorigin href="/_nuxt/DiBBw_W2.js">
+  <script type="module" src="/_nuxt/Di6I4_Kl.js" crossorigin></script> -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="./js/main.js"></script>
+
+  <script>
+    "use strict";
+
+    (() => {
+      const a = window,
+        e = document.documentElement,
+        m = ["dark", "light"],
+        c = window && window.localStorage && window.localStorage.getItem && window.localStorage.getItem("nuxt-color-mode") || "light";
+
+      let n = c === "system" ? d() : c;
+      const l = e.getAttribute("data-color-mode-forced");
+      if (l) {
+        n = l;
+      }
+
+      i(n);
+
+      a["__NUXT_COLOR_MODE__"] = {
+        preference: c,
+        value: n,
+        getColorScheme: d,
+        addColorScheme: i,
+        removeColorScheme: f
+      };
+
+      function i(o) {
+        const t = "" + o + "",
+          s = "";
+
+        if (e.classList) {
+          e.classList.add(t);
+        } else {
+          e.className += " " + t;
+        }
+
+        if (s) {
+          e.setAttribute("data-" + s, o);
+        }
+      }
+
+      function f(o) {
+        const t = "" + o + "",
+          s = "";
+
+        if (e.classList) {
+          e.classList.remove(t);
+        } else {
+          e.className = e.className.replace(new RegExp(t, "g"), "");
+        }
+
+        if (s) {
+          e.removeAttribute("data-" + s);
+        }
+      }
+
+      function r(o) {
+        return a.matchMedia("(prefers-color-scheme" + o + ")");
+      }
+
+      function d() {
+        if (a.matchMedia && r("").media !== "not all") {
+          for (const o of m) {
+            if (r(":" + o).matches) {
+              return o;
+            }
+          }
+        }
+        return "light";
+      }
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="__nuxt">
+    <div class="flex flex-col h-screen">
+      <nav data-headlessui-state class="bg-white border-b fixed top-0 z-50 w-screen">
+        <div class="hidden bg-[#0F52FF] h-9 2xl:flex xl:flex lg:flex items-center justify-center">
+          <p class="font-Pretendard text-white font-semibold text-base"> 상위권 진입,유지 못할 경우 <span class="text-[#FFEF87]">
+              100% 환불보장제도! </span> 365일 24시간 상담 가능 </p>
+        </div>
+        <div class="px-4 sm:px-6 lg:px-8">
+          <div class="flex h-20 justify-between">
+            <div class="flex">
+              <div class="-ml-2 mr-2 flex items-center xl:hidden">
+                <button id="headlessui-disclosure-button-273" type="button" aria-expanded="false" data-headlessui-state
+                  class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-topclick-brand">
+                  <span class="sr-only">Open main menu</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" aria-hidden="true" class="block h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="flex flex-shrink-0 items-center"><a href="/"><img src="./img/logo_jw.svg"
+                    onerror="this.setAttribute(&#39;data-error&#39;, 1)" alt="Company logo" data-nuxt-img></a></div>
+            </div>
+            <div class="hidden xl:justify-center xl:flex xl:space-x-8 font-Pretendard">
+              <!--[--><a href="/search/volume"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-검색량
+                조회</a><a href="/search/web"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-웹
+                순위</a><a href="/search/shop"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-쇼핑
+                순위</a><a href="/search/place"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-플레이스
+                순위</a><a href="/search/view"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-View
+                순위</a>
+              <!--]-->
+              <!---->
+              <!---->
+            </div>
+            <div class="hidden sm:flex sm:items-center">
+              <div class="flex flex-row font-Pretendard"><a href="/auth/login"><button type="button"
+                    class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-base gap-x-2.5 p-2.5 text-gray-500 dark:text-gray-400 bg-gray-50 hover:bg-gray-100 disabled:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-900 dark:disabled:bg-gray-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-500 dark:focus-visible:ring-gray-400 inline-flex items-center px-4">
+                    <!--[-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--[--> 로그인 <span class="i-heroicons-user w-5 h-5"></span>
+                    <!--]-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--]-->
+                  </button></a>
+                <!---->
+              </div>
+              <div class="flex-shrink-0 font-Pretendard"><a class="px-4" href="/service"><button type="button"
+                    class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full text-base gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 inline-flex items-center px-5">
+                    <!--[-->
+                    <!--[--><span class="i-heroicons-shopping-cart flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                    <!--]-->
+                    <!--[--> 상품안내
+                    <!--]-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--]-->
+                  </button></a></div>
+            </div>
+          </div>
+        </div>
+        <!---->
+      </nav>
+      <!---->
+      <!---->
+      <main class="flex-1">
+        <div class="bg-white font-Pretendard leading-normal tracking-normal">
+          <!--[-->
+          <!--[-->
+          <div class="bg-cover font-pretendard mt-28" style="background-color:white;">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center">
+              <!--[-->
+              <div data-aos="fade-down" data-aos-duration="2000"
+                class="text-center 2xl:mt-24 xl:mt-24 lg:mt-24 md:mt-10 mt-5">
+                <div>
+                  <p class="lg:font-extrabold font-bold 2xl:text-3xl xl:text-3xl lg:text-3xl md:text-3xl text-xl"><span
+                      class="text-[#5ECD50]">N</span>-플레이스ㆍ웹 상위 노출 </p>
+                </div>
+                <div class="2xl:mt-6 xl:mt-6 lg:mt-6 md:mt-4 mt-2">
+                  <p class="lg:font-extrabold font-bold 2xl:text-6xl xl:text-6xl lg:text-5xl md:text-4xl text-xl">
+                    &#39;<span class="text-[#0E29FF]">1주일만에 1페이지 </span>올려드립니다.&#39; </p>
+                </div>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="3000"
+                class="flex flex-row justify-center mt-14 2xl:gap-x-16 xl:gap-x-16 lg:gap-x-16 md:gap-x-10 gap-x-8">
+                <!--[-->
+                <div class="flex flex-col items-center justify-center gap-5">
+                  <div><img class="2xl:w-auto xl:w-auto lg:w-auto w-20" src="./img/circle_01.svg" alt="메인원형">
+                  </div>
+                  <div class="text-center">
+                    <p class="font-medium 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm">24시간</p>
+                    <p class="font-extrabold 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm text-[#5ECD50]">실시간
+                      모니터링</p>
+                  </div>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-5">
+                  <div><img class="2xl:w-auto xl:w-auto lg:w-auto w-20" src="./img/circle_02.svg" alt="메인원형">
+                  </div>
+                  <div class="text-center">
+                    <p class="font-medium 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm">N플레이스</p>
+                    <p class="font-extrabold 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm text-[#5ECD50]">
+                      1페이지 보장</p>
+                  </div>
+                </div>
+                <div class="flex flex-col items-center justify-center gap-5">
+                  <div><img class="2xl:w-auto xl:w-auto lg:w-auto w-20" src="./img/circle_03.svg" alt="메인원형">
+                  </div>
+                  <div class="text-center">
+                    <p class="font-medium 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm">어뷰징 ZERO</p>
+                    <p class="font-extrabold 2xl:text-2xl xl:text-2xl lg:text-2xl md:text-xl text-sm text-[#5ECD50]">
+                      환불보장</p>
+                  </div>
+                </div>
+                <!--]-->
+              </div>
+              <div data-aos="fade-up" data-aos-duration="3000" class="mt-16 flex justify-center">
+                <!--[--><a
+                  class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-full gap-x-2.5 py-2.5 shadow-sm dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 items-center animate-bounce px-10 flex justify-between text-[#3B2824] bg-[#FCEC60] hover:bg-[#EAD200] font-semibold text-lg"
+                  href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_blank">
+                  <!--[-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--[--><span class="i-heroicons-chat-bubble-oval-left-solid w-5 h-5 text-[#3B2824]"></span> 카톡상담 바로가기
+                  <!--]-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--]-->
+                </a>
+                <!--]-->
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:white;">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center 2xl:my-24 xl:my-24 lg:my-24 my-14">
+              <!--[-->
+              <div class="flex justify-center"><img class="2xl:w-auto xl:w-auto lg:w-auto w-52" src="./img/text_img.svg"
+                  alt="텍스트이미지"></div>
+              <div class="flex justify-center mt-4"><img class="2xl:w-auto xl:w-auto lg:w-auto w-1/2"
+                  src="./img/jw_big.svg" alt="로고이미지"></div>
+              <div class="flex justify-center 2xl:mt-10 xl:mt-10 lg:mt-10 mt-5">
+                <p class="font-extralight 2xl:text-5xl xl:text-5xl lg:text-5xl text-3xl text-[#0E29FF]">마케팅 솔루션</p>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#F1F9FF;">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center 2xl:mt-24 xl:mt-24 lg:mt-24 md:mt-16 mt-10">
+              <!--[-->
+              <div
+                class="flex flex-col 2xl:my-24 xl:my-24 lg:my-24 md:my-16 my-10 2xl:mx-60 xl:mx-40 lg:mx-24 justify-center">
+                <div
+                  class="lg:font-bold font-semibold 2xl:text-4xl xl:text-4xl lg:text-4xl md:text-3xl text-xl text-center">
+                  혹시,사장님들 이런 상황이신가요?</div>
+                <div class="lg:mt-16 mt-10 2xl:mx-12 xl:mx-6 mx-4 relative">
+                  <div data-aos="fade-up" data-aos-duration="1000"
+                    class="md:absolute z-0 lg:ml-14 md:w-[424px] md:h-[105px] flex justify-start">
+                    <div class="relative flex justify-center items-center md:z-20">
+                      <div
+                        class="absolute md:ml-0 lg:mb-6 mb-5 md:z-20 2xl:text-xl xl:text-xl lg:text-xl md:text-lg text-base">
+                        <p>방문객이 없어서<span class="lg:font-bold font-semibold"> 3개월째 적자에요</span></p>
+                      </div><img class="2xl:w-auto xl:w-auto lg:w-auto md:w-4/5 w-80"
+                        src="./img/SpeechBubble_01_img.svg" alt="Bubble01">
+                    </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-duration="1000"
+                    class="md:absolute 2xl:mt-16 xl:mt-10 lg:mt-10 md:mt-10 md:z-10 right-0 lg:w-[370px] lg:h-[156px]">
+                    <div class="relative flex md:justify-center justify-end items-center md:z-20">
+                      <div
+                        class="absolute md:mr-0 mr-20 md:z-20 mb-4 lg:text-xl md:text-lg text-base text-white text-center">
+                        <p>인터넷에 아무리 검색해도</p>
+                        <p class="lg:font-bold font-semibold">우리 매장이 안나와요</p>
+                      </div><img class="lg:w-auto md:w-4/5 w-80" src="./img/SpeechBubble_02_img.svg" alt="Bubble02">
+                    </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-duration="2000"
+                    class="md:absolute 2xl:mt-32 xl:mt-32 lg:mt-32 md:mt-32 md:z-10 md:w-[580px] md:h-[176px] flex justify-start">
+                    <div class="relative flex items-center justify-center md:z-20">
+                      <div class="absolute z-20 lg:text-xl md:text-lg text-xs text-center">
+                        <p class="lg:font-bold font-semibold">손님 많은 옆 가게는 사이트 검색하면</p>
+                        <p class=""><span class="lg:font-bold font-semibold">1페이지에 나오던데 </span>대체 어떻게 해야 하는 거죠?</p>
+                      </div><img class="md:w-auto md:h-auto w-80" src="./img/SpeechBubble_03_img.svg" alt="Bubble03">
+                    </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-duration="2000"
+                    class="md:absolute 2xl:mt-72 xl:mt-72 lg:mt-72 md:mt-72 md:z-10 2xl:ml-[550px] right-0 md:w-[416px] md:h-[146px]">
+                    <div class="relative flex md:justify-center justify-end items-center md:z-20">
+                      <div
+                        class="absolute md:mr-0 mr-[70px] mb-2 z-20 2xl:text-xl xl:text-xl lg:text-xl md:text-lg text-sm text-center">
+                        <p>우리 가게 홈페이지는 만들었는데</p>
+                        <p class="lg:font-bold font-semibold">검색해도 보이지가 않아요..</p>
+                      </div><img class="2xl:w-auto xl:w-auto lg:w-auto w-80" src="./img/SpeechBubble_04_img.svg">
+                    </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-duration="3000"
+                    class="md:absolute md:z-30 md:mb-10 mr-5 bottom-0 md:right-0 md:w-14 md:h-14 w-10 h-10"><img
+                      src="./img/emoji_img.svg"></div>
+                  <div data-aos="fade-up" data-aos-duration="3000"
+                    class="md:mt-96 lg:ml-20 ml-0 z-10 md:w-[416px] md:h-[146px]">
+                    <div class="relative flex justify-center items-center md:z-20">
+                      <div class="absolute mb-5 z-20 lg:text-xl md:text-lg text-base text-white text-center">
+                        <p>CPC 광고 했는데<span class="lg:font-bold font-semibold"> 광고비만 낭비했어요</span></p>
+                      </div><img class="lg:w-auto md:w-4/5 w-80" src="./img/SpeechBubble_05_img.svg">
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="mt-5 flex justify-center text-center md:font-bold font-semibold text-[#0E29FF] 2xl:text-4xl xl:text-4xl lg:text-4xl md:text-3xl text-base underline underline-offset-8">
+                  오프라인 매장 사장님이라면 마주하게되는 고민 </div>
+                <div data-aos="fade-down" data-aos-duration="3000">
+                  <div class="mt-10 flex justify-center"><img class="w-auto" src="./img/arrow_img.svg"></div>
+                  <div
+                    class="flex justify-center mt-10 2xl:text-5xl xl:text-5xl lg:text-4xl md:text-3xl text-lg text-white">
+                    <p class="inline-block bg-[#0E29FF] p-2 md:px-2 px-1 font-extralight"> JW마케팅에서<span
+                        class="md:font-bold font-semibold"> 솔루션을 제공해드립니다. </span></p>
+                  </div>
+                  <div class="mt-16 flex justify-center">
+                    <!--[--><a
+                      class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-full gap-x-2.5 py-2.5 shadow-sm dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 items-center px-10 flex justify-between text-[#3B2824] bg-[#FCEC60] hover:bg-[#EAD200] font-semibold text-lg"
+                      href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_blank">
+                      <!--[-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--[--><span class="i-heroicons-chat-bubble-oval-left-solid w-5 h-5 text-[#3B2824]"></span> 카톡상담
+                      바로가기
+                      <!--]-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--]-->
+                    </a>
+                    <!--]-->
+                  </div>
+                </div>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover bg-center font-pretendard" style="background-image:url(&#39;./img/bg-green.svg&#39;);">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center lg:pt-20 pt-10 pb-36 mb-5">
+              <!--[-->
+              <div class="flex flex-col justify-center text-center gap-2">
+                <div data-aos="fade-up" data-aos-duration="1000">
+                  <div class="lg:mb-10 mb-5 -rotate-6">
+                    <p
+                      class="p-2 lg:px-5 px-3 inline-block text-[#0E29FF] bg-white lg:text-3xl text-lg lg:font-extrabold font-bold">
+                      첫번째! </p>
+                  </div>
+                  <p class="lg:text-4xl md:text-lg text-base text-white font-bold">N-플레이스</p>
+                  <p class="lg:mt-3 lg:text-4xl md:text-lg text-base text-white font-bold"><span
+                      class="inline-block lg:p-2 p-1 bg-[#0E29FF]">첫 페이지에 상위노출</span> 이 되고 있나요?</p>
+                </div>
+                <div class="lg:mt-24 mt-10 flex lg:flex-row flex-col justify-center gap-6">
+                  <div data-aos="fade-right" data-aos-duration="2000" class="flex flex-col items-center justify-center">
+                    <img class="lg:w-80 w-2/4" src="./img/mbSearch_img.svg">
+                    <div class="mt-9 text-white font-medium lg:text-2xl text-lg">
+                      <p>인터넷에 아무리 검색해도</p>
+                      <p>나오지 않던 가게에서</p>
+                    </div>
+                  </div>
+                  <div data-aos="fade-right" data-aos-duration="2000" class="flex justify-center items-center lg:mb-24">
+                    <img class="lg:w-auto w-12 lg:rotate-0 rotate-90" src="./img/arrow_white.svg" alt="화살표">
+                  </div>
+                  <div data-aos="fade-left" data-aos-duration="3000" class="flex flex-col items-center mb-5"><img
+                      class="lg:w-auto w-3/4" src="./img/mbSearch2_img.svg" alt="이미지">
+                    <div class="mt-4 text-white font-bold lg:text-3xl text-lg">
+                      <p>1주일만에 플레이스 <span class="underline underline-offset-8 mb-2">1페이지 달성!</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#ffffff;">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center lg:mt-20 mt-10 lg:mb-20 mb-10">
+              <!--[-->
+              <div class="flex flex-col justify-center text-center gap-5">
+                <p data-aos="fade-up" data-aos-duration="1000"
+                  class="font-InklipQuid lg:text-5xl text-4xl text-[#0E29FF]">만족도 99.6%</p>
+                <div data-aos="fade-up" data-aos-duration="2000">
+                  <p class="lg:text-4xl text-2xl md:font-extrabold font-semibold">사장님 후기가 증명하는</p>
+                  <p class="mt-2 lg:text-4xl text-2xl md:font-extrabold font-semibold text-[#5DCA77]">N플레이스 매출 상승 비법</p>
+                </div>
+                <div class="lg:hidden mt-5 flex justify-center">
+                  <div id="default-carousel" class="w-64" data-carousel="slide" data-carousel-interval="3000">
+                    <div class="relative h-96 overflow-hidden">
+                      <!--[-->
+                      <div class="hidden duration-1000 ease-in-out" data-carousel-item><img src="./img/Nplace1_img.svg"
+                          class="absolute block w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                          alt="SampleImg"></div>
+                      <div class="hidden duration-1000 ease-in-out" data-carousel-item><img src="./img/Nplace2_img.svg"
+                          class="absolute block w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                          alt="SampleImg"></div>
+                      <div class="hidden duration-1000 ease-in-out" data-carousel-item><img src="./img/Nplace3_img.svg"
+                          class="absolute block w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                          alt="SampleImg"></div>
+                      <div class="hidden duration-1000 ease-in-out" data-carousel-item><img src="./img/Nplace2_img.svg"
+                          class="absolute block w-96 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                          alt="SampleImg"></div>
+                      <!--]-->
+                    </div>
+                    <div
+                      class="hidden absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                      <button id="carousel-indicatior-1" type="button" class="w-2 h-2 rounded-full" aria-current="true"
+                        aria-label="Slide 1" data-carousel-slide-to="0"></button><button id="carousel-indicatior-2"
+                        type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 2"
+                        data-carousel-slide-to="1"></button><button id="carousel-indicatior-3" type="button"
+                        class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 3"
+                        data-carousel-slide-to="2"></button><button id="carousel-indicatior-4" type="button"
+                        class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 4"
+                        data-carousel-slide-to="3"></button>
+                    </div>
+                    <button type="button"
+                      class="hidden absolute top-0 start-0 z-30 flex items-center justify-center h-96 px-8 cursor-pointer group focus:outline-none"
+                      data-carousel-prev><span
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none"><svg
+                          class="w-4 h-4 text-indigo-500 rtl:rotate-180" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 1 1 5l4 4"></path>
+                        </svg><span class="sr-only">Previous</span></span></button><button type="button"
+                      class="hidden absolute top-0 end-0 z-30 flex items-center justify-center h-96 px-8 cursor-pointer group focus:outline-none"
+                      data-carousel-next><span
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none"><svg
+                          class="w-4 h-4 text-indigo-500 rtl:rotate-180" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4"></path>
+                        </svg><span class="sr-only">Next</span></span></button>
+                  </div>
+                </div>
+
+
+                <div data-aos="zoom-in" data-aos-duration="2000" class="lg:block hidden mt-4 justify-center">
+                  <diV class="flex flex-row justify-center"><img class="2xl:w-auto xl:w-auto lg:w-[320px] w-48"
+                      src="./img/Nplace1_img.svg" alt="N플레이스이미지1"><img class="2xl:w-auto xl:w-auto lg:w-[320px] w-48"
+                      src="./img/Nplace2_img.svg" alt="N플레이스이미지2"><img class="2xl:w-auto xl:w-auto lg:w-[320px] w-48"
+                      src="./img/Nplace3_img.svg" alt="N플레이스이미지3"></diV>
+                </div>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#F1F9FF;">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center py-20">
+              <!--[-->
+              <div class="flex flex-col justify-center text-center mt-4">
+                <div data-aos="fade-up" data-aos-duration="2000">
+                  <p class="lg:text-4xl md:text-2xl text-xl md:font-extrabold font-semibold">우리 지역에서 가장 눈에 띄는 가게<span
+                      class="font-extralight">로</span></p>
+                  <p class="mt-2 lg:text-4xl md:text-2xl text-xl font-extralight">홍보하고 싶다면?</p>
+                </div>
+                <div class="lg:mt-14 mt-6 flex flex-row justify-center xl:gap-20 lg:gap-14 gap-4">
+                  <diV class="flex flex-col items-center lg:gap-16 gap-8"><img class="lg:ml-5 lg:w-auto w-16"
+                      src="./img/store_sample_01_img.svg" alt="store_01"><img class="lg:mr-20 mr-4 lg:w-auto w-24"
+                      src="./img/store_sample_02_img.svg" alt="store_02">
+                  </diV><img class="xl:w-auto lg:w-80 w-40" src="./img/store_img.svg" alt="스토어이미지">
+                  <diV class="flex flex-col items-center lg:gap-14 gap-4"><img
+                      class="2xl:w-auto xl:w-auto lg:w-auto w-24" src="./img/store_sample_03_img.svg"
+                      alt="store_03"><img class="2xl:ml-32 xl:ml-32 lg:ml-32 ml-6 lg:w-auto w-16"
+                      src="./img/store_sample_04_img.svg" alt="store_04"></diV>
+                </div>
+                <div>
+                  <div data-aos="fade-up" data-aos-duration="1000" class="flex justify-center mt-4"><img
+                      class="lg:w-auto w-2/4" src="./img/arrow_img.svg" alt="화살표이미지"></div>
+                  <div class="mt-9 flex flex-col justify-center text-center gap-4">
+                    <p data-aos="fade-up" data-aos-duration="2000"
+                      class="md:font-extrabold font-semibold text-[#0E29FF] xl:text-4xl lg:text-3xl md:text-3xl text-lg underline underline-offset-8">
+                      전국 어느 지역이든 검색어 상위노출 보장! </p>
+                    <p class="font-semibold lg:text-xl text-base">#1페이지 노출보장 #확인후 입금 #안되면 환불</p>
+                  </div>
+                </div>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#ffffff;">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center mt-20 mb-20">
+              <!--[-->
+              <div data-aos="fade-up" data-aos-duration="2500" class="flex flex-col justify-center text-center">
+                <div class="flex flex-row gap-3 justify-center items-center">
+                  <p class="lg:font-extrabold font-bold lg:text-4xl text-2xl">매출 상승 프로젝트</p>
+                  <div class="lg:w-10 lg:h-10 w-7 h-7 flex items-center"><img src="./img/1_img.svg"></div>
+                </div>
+                <div class="mt-10">
+                  <p class="lg:text-2xl md:text-lg text-sm">내가 운영하는 장소에 맞는 키워드, 카테고리를 설정해</p>
+                  <p class="lg:text-2xl md:text-lg text-sm lg:font-bold font-semibold">사람들이 알아서 찾아오게 만드는 <span
+                      class="text-[#00D036]">&#39;플레이스&#39;세팅</span></p>
+                </div>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="2000"
+                class="lg:mx-auto mt-16 grid xl:grid-cols-8 lg:grid-cols-4 grid-cols-3 justify-center items-center xl:gap-10 lg:gap-5 gap-2 gap-y-2">
+                <!--[-->
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_01.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">병원</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_02.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">변호사 사무실</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_03.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">헬스장</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_04.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">꽃집</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_05.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">네일샵</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_06.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">PC방</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_07.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">골프연습장</div>
+                </div>
+                <div class="flex flex-col text-center items-center">
+                  <div class="flex justify-center"><img src="./img/placelist_08.svg" alt="이미지"></div>
+                  <div class="my-3 md:font-bold font-semibold 2xl:text-lg xl:text-lg lg:text-lg text-base">기타</div>
+                </div>
+                <!--]-->
+              </div>
+              <div data-aos="zoom-in-down" data-aos-duration="3000"
+                class="mt-10 flex flex-col lg:flex-row justify-center items-center gap-4">
+                <p class="font-InklipQuid lg:text-5xl text-4xl text-[#0E29FF] font-extralight">전국 어느 지역이든</p>
+                <p class="md:font-extrabold font-semibold lg:text-4xl md:text-3xl text-xl">어느 업종이든 1페이지 보장!</p>
+              </div>
+              <div class="mt-16 flex justify-center">
+                <!--[--><a
+                  class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-full gap-x-2.5 py-2.5 shadow-sm dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 items-center px-10 flex justify-between text-[#3B2824] bg-[#FCEC60] hover:bg-[#EAD200] font-semibold text-lg"
+                  href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_blank">
+                  <!--[-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--[--><span class="i-heroicons-chat-bubble-oval-left-solid w-5 h-5 text-[#3B2824]"></span> 카톡상담 바로가기
+                  <!--]-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--]-->
+                </a>
+                <!--]-->
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover bg-center font-pretendard background_img"
+            style="background-image: url('img/bg-green.svg');">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center lg:pt-20 pt-10 pb-40">
+              <!--[-->
+              <div data-aos="fade-up" data-aos-duration="1000" class="flex flex-col justify-center text-center gap-2">
+                <div class="mb-5 -rotate-6">
+                  <p class="p-2 lg:px-5 px-3 inline-block text-[#0E29FF] bg-white lg:text-3xl text-lg font-extrabold">
+                    두번째! </p>
+                </div>
+                <p class="lg:text-4xl md:text-lg text-base text-white font-bold">N-웹영역에</p>
+                <p class="lg:text-4xl md:text-lg text-base text-white font-bold"><span
+                    class="inline-block lg:p-2 p-1 bg-[#0E29FF]"> 우리 홈페이지/SNS가 상위노출</span> 이 되고 있나요? </p>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="2000" class="lg:mt-12 mt-6 flex flex-col justify-center gap-6">
+                <div class="flex flex-col justify-center">
+                  <div class="flex justify-center">
+                    <div
+                      class="lg:w-72 w-40 lg:h-14 h-8 bg-white ring-4 ring-[#0E29FF] rounded-full justify-center flex items-center">
+                      <p class="lg:font-bold font-semibold lg:text-2xl text-lg">ex)강남 변호사</p><span
+                        class="i-heroicons-magnifying-glass lg:ml-8 ml-2 lg:w-8 lg:h-8 w-5 h-5 text-[#0E29FF]"></span>
+                    </div>
+                  </div>
+                  <div class="lg:mt-10 mt-5 flex justify-center"><img class="lg:w-[500px] w-72"
+                      src="./img/Nweb_sample.svg" alt="샘플이미지"></div>
+                </div>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="2000" class="mt-12 flex justify-center items-center gap-6">
+                <p class="text-white md:font-extrabold font-semibold text-3xl">71위</p><img class="w-9"
+                  src="./img/arrow_white.svg">
+                <p class="text-white md:font-extrabold font-semibold lg:text-5xl text-3xl underline underline-offset-8">
+                  1위 진입</p>
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#ffffff;">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center lg:mt-20 mt-16 mb-20">
+              <!--[-->
+              <div data-aos="fade-up" data-aos-duration="2500" class="flex flex-col justify-center text-center">
+                <div class="flex flex-row gap-3 justify-center items-center">
+                  <p class="lg:font-extrabold font-bold lg:text-4xl text-2xl">매출 상승 프로젝트</p>
+                  <div class="lg:w-10 lg:h-10 w-7 h-7 flex items-center"><img src="./img/2_img.svg"></div>
+                </div>
+                <div class="mt-10">
+                  <p class="lg:text-2xl md:text-lg text-sm">내가 운영하는 홈페이지/SNS 등을 키워드,카테고리를 설정해</p>
+                  <p class="lg:text-2xl md:text-lg text-sm md:font-bold font-semibold">웹영역 1페이지에 노출하는 <span
+                      class="text-[#00D036]">&#39;웹사이트&#39; 상위노출</span></p>
+                </div>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="2500" class="lg:mt-16 mt-10 flex justify-center">
+                <!--[--><a
+                  class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-full gap-x-2.5 py-2.5 shadow-sm dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 items-center px-10 flex justify-between text-[#3B2824] bg-[#FCEC60] hover:bg-[#EAD200] font-semibold text-lg"
+                  href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_blank">
+                  <!--[-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--[--><span class="i-heroicons-chat-bubble-oval-left-solid w-5 h-5 text-[#3B2824]"></span> 카톡상담 바로가기
+                  <!--]-->
+                  <!--[-->
+                  <!---->
+                  <!--]-->
+                  <!--]-->
+                </a>
+                <!--]-->
+              </div>
+              <div class="lg:mt-14 mt-10 flex flex-col gap-5">
+                <div class="flex justify-center"><img class="lg:w-64 w-48" src="./img/logo_jwmarketing_verticial.svg"
+                    alt="jw세로형로고"></div>
+                <p data-aos="fade-up" data-aos-duration="2000"
+                  class="lg:mt-12 mt-8 flex justify-center md:font-extrabold font-semibold lg:text-4xl md:text-3xl text-base">
+                  JW마케팅에서 <span class="text-[#0E29FF]"> 1페이지 진입,유지를 보장합니다.</span></p>
+              </div>
+              <div data-aos="fade-down" data-aos-duration="2000"
+                class="mt-14 grid grid-row-2 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 grid-cols-2 2xl:mx-32 xl:mx-14 lg:mx-24 lg:gap-y-9 lg:gap-x-10 gap-y-3 gap-x-4">
+                <!--[-->
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">1</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs">N플레이스,웹사이트</p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">1주일 내 순위상승</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">2</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs">모바일+PC (25일 기준)</p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">1페이지 보장</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">3</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs">로직 대응률 업계 최고</p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">성공률 업계 1위</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">4</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs">개발자 및 프로그램 업계 최대 보유,</p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">24시간 모니터링</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">5</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs">절대 안심하세요!</p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">어뷰징 ZERO</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-7 lg:h-7 w-5 h-5 bg-[#0E29FF] rounded-full flex justify-center items-center">
+                      <p class="lg:text-base text-sm text-white font-bold">6</p>
+                    </div>
+                  </div>
+                  <div class="relative w-full lg:h-[140px] h-[120px] flex items-center">
+                    <div
+                      class="w-full lg:h-[120px] h-[100px] bg-white text-center flex items-center flex-col justify-center shadow-lg rounded-3xl lg:p-6 lg:px-0 px-2 lg:py-0 py-5">
+                      <p class="lg:text-xl md:text-base text-xs"></p>
+                      <p class="lg:text-xl md:text-base text-sm lg:font-extrabold font-semibold">세금계산서 발행</p>
+                    </div>
+                  </div>
+                </div>
+                <!--]-->
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard bg-gradient-to-r from-[#0E29FF] to-[#0E94FF]">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex flex-col justify-center pt-20 pb-20">
+              <!--[-->
+              <div data-aos="fade-up" data-aos-duration="2000" class="flex flex-col justify-center text-center">
+                <div class="flex flex-row gap-3 justify-center items-center">
+                  <p class="lg:font-extrabold font-bold text-white lg:text-4xl text-2xl">JW마케팅의 특화된 서비스</p>
+                </div>
+              </div>
+              <div data-aos="fade-up" data-aos-duration="2500" data-aos-anchor-placement="top-bottom"
+                class="mt-14 grid grid-row-2 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 grid-cols-2 2xl:mx-32 xl:mx-14 mx-auto md:gap-10 gap-x-3">
+                <!--[-->
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold ">
+                          1페이지 진입 확인 후<br>
+                          입금해주세요.</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1"
+                          src="./img/money_img.svg" alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          1주일(최대 한 달)이내<br>
+                          1페이지에 진입되며,진입 확인 후<br>
+                          후불로 입금 가능합니다.</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold whitespace-pre-line">
+                          검증된 성공률</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1" src="./img/100_img.svg"
+                          alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          업주분들의 리스크 최소화를 위해<br>
+                          순위 상승 효과가 없을 경우
+                          100%환불을 보장해 드립니다.</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                          *단 보장형 순위상승 상품만 해당</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold ">
+                          중간 수수료 0%</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1"
+                          src="./img/zero_img.svg" alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          CPC 광고 비용보다<br>
+                          훨씬 합리적인 금액으로 상위 노출</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                          JW마케팅은 자체 서버와 강력한<br>
+                          솔루션 프로그램을 보유한 개발사이므로,<br>
+                          수수료 없이 최상의 서비스를 제공합니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold ">
+                          어뷰징 0%</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1" src="./img/chart_img.svg"
+                          alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          실사용자 방문과 동일하게 재현한<br>
+                          시스템 로직으로 어뷰징 걱정 NO</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                          자체 서버 프로그램 운영으로<br>
+                          최신 상위 노출 로직에<br>
+                          실시간 대응합니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold ">
+                          업계 최고 전문가<br>
+                          자체서버보유</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1" src="./img/medal_img.svg"
+                          alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          24시간 365일 신속대응</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                          JW마케팅은 검색엔진 개발본부,<br>
+                          백엔드 개발팀,서버관리팀,영업팀,<br>
+                          마케팅팀,전략기획팀 등<br>
+                          업계 최고의 인력들로 구성되어있습니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <div class="absolute z-10 flex justify-center">
+                    <div class="lg:w-24 lg:h-24 w-12 h-12 bg-white rounded-full flex justify-center items-center"><img
+                        class="lg:w-12 lg:h-12 w-6 h-6" src="./img/logo_jwmarketing_small.svg" alt="jw로고"></div>
+                  </div>
+                  <div class="relative lg:w-[360px] lg:h-[535px] md:w-64 md:h-60 w-40 h-48 flex items-center">
+                    <div
+                      class="lg:w-[360px] lg:h-[420px] md:w-64 w-40 md:h-52 h-40 bg-white text-center flex items-center justify-center shadow-lg rounded-3xl lg:p-8 md:p-4 p-2">
+                      <div class="z-20 flex flex-col justify-center items-center lg:gap-3 gap-1">
+                        <p class="lg:text-3xl md:text-base text-sm md:font-extrabold font-semibold ">
+                          대형 고객 다수 보유</p><img class="lg:w-auto lg:h-auto md:w-20 w-16 lg:my-2 my-1"
+                          src="./img/folder_img.svg" alt="이미지">
+                        <p class="lg:block md:block hidden lg:text-lg md:text-sm text-xs font-bold ">
+                          1500여개의 고객사</p>
+                        <p class="lg:block hidden lg:text-base text-xs font-semibold text-[#0E29FF] ">
+                          맛집,병원,피부과,의류쇼핑몰,<br>
+                          성형외과,변호사,헬스<br>
+                          외식프랜차이즈,에이전시 등<br>
+                          다양한 업종의 레퍼런스 보유</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--]-->
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="bg-cover font-pretendard" style="background-color:#F1F9FF;">
+            <div
+              class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl gap-x-20 flex lg:flex-row flex-col justify-center py-14">
+              <!--[-->
+              <div class="flex flex-col justify-center mt-4">
+                <div>
+                  <p class="lg:text-4xl text-2xl lg:font-extrabold font-semibold text-[#0E29FF]">매출상승의 지름길<span
+                      class="text-black">은</span></p>
+                  <p class="mt-2 lg:text-4xl text-2xl lg:font-extrabold font-semibold">검색엔진 순위를 올리는 것입니다.</p>
+                </div>
+                <div class="lg:mt-12 mt-8 lg:text-xl text-sm font-medium">
+                  <p>내 매장에 수많은 고객이 찾아올 수 있는 가장 확실한 방법은</p>
+                  <p>플레이스ㆍ웹 검색순위 상단에 나의 매장을 알리는 것입니다.</p>
+                </div>
+                <div class="lg:mt-5 mt-8 flex">
+                  <!--[--><a
+                    class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-full gap-x-2.5 py-2.5 shadow-sm dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 items-center px-10 flex justify-between text-[#3B2824] bg-[#FCEC60] hover:bg-[#EAD200] font-semibold text-lg"
+                    href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_blank">
+                    <!--[-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--[--><span class="i-heroicons-chat-bubble-oval-left-solid w-5 h-5 text-[#3B2824]"></span> 카톡상담
+                    바로가기
+                    <!--]-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--]-->
+                  </a>
+                  <!--]-->
+                </div>
+              </div>
+              <div class="lg:mt-0 mt-6 flex justify-end"><img class="lg:w-72 md:w-1/4 w-2/4" src="./img/phone_img.svg"
+                  alt="목업이미지"></div>
+              <!--]-->
+            </div>
+          </div>
+          <!--]-->
+          <!--]-->
+        </div>
+      </main>
+      <!--[-->
+      <!--[--><a
+        class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium text-sm gap-x-1.5 px-2.5 py-1.5 text-white dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 w-16 h-16 right-0 lg:bottom-8 bottom-5 fixed rounded-full lg:mr-8 mr-4 flex items-center justify-center bg-[#fae100] hover:bg-[#EAD200] shadow-md z-10"
+        href="https://open.kakao.com/meimg3" rel="noopener noreferrer" target="_black">
+        <!--[-->
+        <!--[-->
+        <!---->
+        <!--]-->
+        <!--[--><img class="w-10 h-10" src="../img/kakao_logo.svg" alt="카카오오픈채팅">
+        <!--]-->
+        <!--[-->
+        <!---->
+        <!--]-->
+        <!--]-->
+      </a>
+      <!--]-->
+      <!---->
+      <footer class="bg-topclick-state-BOTTOM">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <!--[-->
+          <div class="mt-4 mb-4">
+            <div class="items-center">
+              <div class="flex flex-col">
+                <p class="text-sm text-center text-white md:mt-0">JW MARKETING © Copyright 2024. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!--]-->
+        </div>
+      </footer>
+      <!--]-->
+    </div>
+  </div>
+  <div id="teleports"></div>
+  <script type="application/json" id="__NUXT_DATA__"
+    data-ssr="true">[["Reactive",1],{"data":2,"state":59,"once":66,"_errors":67,"serverRendered":42,"path":68,"pinia":69},{"EqoD3ytyQc":3,"XF4Ro8A8Ta":34,"lUOXFIaYmF":46,"FNaOfEcj9D":50},{"status":4,"data":5},"success",[6,14,19,24,29],{"seq":7,"domain":8,"name":9,"value":10,"insert_dt":11,"update_dt":11,"use_yn":12,"memo":13},10,"www.jw-marketing.co.kr","domain","\"domain\" : \"www.jw-marketing.co.kr\"","2024-04-03T11:54:07.000Z",1,null,{"seq":15,"domain":8,"name":16,"value":17,"insert_dt":18,"update_dt":18,"use_yn":12,"memo":13},9,"layouts","\"layouts\": {\"default\": \"default\"}","2024-04-03T11:54:06.000Z",{"seq":20,"domain":8,"name":21,"value":22,"insert_dt":23,"update_dt":23,"use_yn":12,"memo":13},8,"logo","\"logo\": { \"site\": \"jw\"}","2024-04-03T11:54:05.000Z",{"seq":25,"domain":8,"name":26,"value":27,"insert_dt":28,"update_dt":28,"use_yn":12,"memo":13},7,"page","\"page\": {\"n\": {\"volume\": {\"title\": \"N-검색량 조회\",\"description\": \"검색 결과는 1개월 기준입니다.\"},\"web\": {\"title\": \"N-웹 순위 조회\",\"description\": \"\"},\"shop\": {\"title\": \"N-쇼핑 순위 조회\",\"description\": \"\"},\"place\": {\"title\": \"N-플레이스 순위 조회\",\"description\": \"\"},\"view\": {\"title\": \"N-View 순위 조회\",\"description\": \"\"}},\"service\": {\"title\": \"강력한 순위상승 ‘JW 마케팅’ 상품안내\",\"description\": \"JW 마케팅은 업계 최고의 개발자 · 마케터 · 기획자가 365일 연중무휴 실시간으로 대응합니다.\"},\"apply\": {\"title\": \"강력한 순위상승 ‘JW 마케팅’ 상품 신청하기\",\"description\": \"본 페이지에서는 결제하지 않으셔도 됩니다. 신청하신 정보를 바탕으로 JW 마케팅 담당자가 빠르고 정확하게 안내해 드립니다.\"}}","2024-04-03T11:54:04.000Z",{"seq":30,"domain":8,"name":31,"value":32,"insert_dt":33,"update_dt":33,"use_yn":12,"memo":13},6,"theme","\"theme\": { \"primary\": \"blue\", \"accent\": \"violet\" }","2024-04-03T11:54:03.000Z",{"status":4,"data":35},[36,43],{"domain":8,"code_id":37,"gr_id":38,"code_name":37,"code_data_1":39,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},"김상만","open_chat_adm","https://open.kakao.com/meimg3",0,"2024-05-30T17:50:07.000Z",true,{"domain":8,"code_id":44,"gr_id":38,"code_name":44,"code_data_1":45,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},"김은석","https://open.kakao.com/o/stgDHTBg",{"status":4,"data":47},[48,49],{"domain":8,"code_id":37,"gr_id":38,"code_name":37,"code_data_1":39,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},{"domain":8,"code_id":44,"gr_id":38,"code_name":44,"code_data_1":45,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},{"status":4,"data":51},{"id":52,"domain":8,"created_at":53,"url":54,"title":55,"description":56,"keyword":57,"page":58},12,"2024-04-03T15:51:33.000Z","https://www.jw-marketing.co.kr","키워드 검색량 조회, 플레이스 웹사이트 상위 전문ㅣJW마케팅","JW마케팅 순위 검색 서비스, 무제한 무료 제공! JW마케팅과 함께 경쟁에서 앞서가고, 비용 부담 없이 고객을 사로잡으세요. 키워드 검색 ,홍보마케팅, 블로그관리대행 , 검색 광고 , 병원마케팅 , 병원광고, SEO , 웹사이트 상위노출, 플레이스 상위노출 , 바이럴마케팅 , 검색엔진 최적화","마케팅, 키워드 검색량 조회,검색엔진 최적화,백링크,플레이스 순위,병원 마케팅,플레이스 상위노출,웹사이트 상위노출,상위노출 업체,키워드분석","root",{"$sauth:data":13,"$sauth:lastRefreshedAt":60,"$sauth:loading":61,"$scolor-mode":62,"$ssite-config":64},["Date","2024-07-19T00:43:15.404Z"],false,{"preference":63,"value":63,"unknown":42,"forced":61},"light",{"name":8,"url":65},"https://www.jw-marketing.co.kr/",["Set"],{"EqoD3ytyQc":13,"XF4Ro8A8Ta":13,"lUOXFIaYmF":13,"FNaOfEcj9D":13},"/",{}]</script>
+  <script>window.__NUXT__ = {}; window.__NUXT__.config = { public: { authJs: { baseUrl: "", verifyClientOnEveryRequest: true }, gtag: { id: "", config: {}, initialConsent: true, loadingStrategy: "defer" }, auth: { computed: { origin: "", pathname: "/api/auth", fullBaseUrl: "/api/auth" }, isEnabled: true, session: { enableRefreshPeriodically: false, enableRefreshOnWindowFocus: true }, globalAppMiddleware: { isEnabled: false, allow404WithoutAuth: true, addDefaultCallbackUrl: true }, origin: "/", provider: { type: "authjs", trustHost: false, defaultProvider: "", addDefaultCallbackUrl: true } }, device: { enabled: true, defaultUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.39 Safari/537.36", refreshOnResize: false }, persistedState: { storage: "localStorage", debug: false, cookieOptions: { sameSite: "strict" } } }, app: { baseURL: "/", buildAssetsDir: "/_nuxt/", cdnURL: "" } }</script>
+</body>
+<script>
+  AOS.init();
+</script>
+
+</html>

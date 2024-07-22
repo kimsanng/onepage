@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style id="nuxt-ui-colors">
+    :root {
+      --color-primary-50: 248 250 252;
+      --color-primary-100: 241 245 249;
+      --color-primary-200: 226 232 240;
+      --color-primary-300: 203 213 225;
+      --color-primary-400: 148 163 184;
+      --color-primary-500: 100 116 139;
+      --color-primary-600: 71 85 105;
+      --color-primary-700: 51 65 85;
+      --color-primary-800: 30 41 59;
+      --color-primary-900: 15 23 42;
+      --color-primary-950: 2 6 23;
+      --color-primary-DEFAULT: var(--color-primary-500);
+
+      --color-gray-50: 249 250 251;
+      --color-gray-100: 243 244 246;
+      --color-gray-200: 229 231 235;
+      --color-gray-300: 209 213 219;
+      --color-gray-400: 156 163 175;
+      --color-gray-500: 107 114 128;
+      --color-gray-600: 75 85 99;
+      --color-gray-700: 55 65 81;
+      --color-gray-800: 31 41 55;
+      --color-gray-900: 17 24 39;
+      --color-gray-950: 3 7 18;
+    }
+
+    .dark {
+      --color-primary-DEFAULT: var(--color-primary-400);
+    }
+  </style>
+  <title>키워드 검색량 조회, 플레이스 웹사이트 상위 전문ㅣJW마케팅</title>
+  <link rel="icon" type="image/png" href>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+  <style id="vuetify-theme-stylesheet">
+    :root {
+      --v-theme-background: 255, 255, 255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255, 255, 255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255, 255, 255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66, 66, 66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238, 238, 238;
+      --v-theme-primary: 24, 103, 192;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31, 85, 146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 72, 169, 166;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1, 135, 134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 176, 0, 32;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-on-background: 0, 0, 0;
+      --v-theme-on-surface: 0, 0, 0;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+
+    .v-theme--light {
+      color-scheme: normal;
+      --v-theme-background: 255, 255, 255;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 255, 255, 255;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 255, 255, 255;
+      --v-theme-surface-bright-overlay-multiplier: 1;
+      --v-theme-surface-variant: 66, 66, 66;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 238, 238, 238;
+      --v-theme-primary: 24, 103, 192;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 31, 85, 146;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 72, 169, 166;
+      --v-theme-secondary-overlay-multiplier: 1;
+      --v-theme-secondary-darken-1: 1, 135, 134;
+      --v-theme-secondary-darken-1-overlay-multiplier: 1;
+      --v-theme-error: 176, 0, 32;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 1;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 1;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 1;
+      --v-theme-on-background: 0, 0, 0;
+      --v-theme-on-surface: 0, 0, 0;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 0, 0, 0;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 0.87;
+      --v-medium-emphasis-opacity: 0.6;
+      --v-disabled-opacity: 0.38;
+      --v-idle-opacity: 0.04;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.12;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 245, 245, 245;
+      --v-theme-on-code: 0, 0, 0;
+    }
+
+    .v-theme--dark {
+      color-scheme: dark;
+      --v-theme-background: 18, 18, 18;
+      --v-theme-background-overlay-multiplier: 1;
+      --v-theme-surface: 33, 33, 33;
+      --v-theme-surface-overlay-multiplier: 1;
+      --v-theme-surface-bright: 204, 191, 214;
+      --v-theme-surface-bright-overlay-multiplier: 2;
+      --v-theme-surface-variant: 163, 163, 163;
+      --v-theme-surface-variant-overlay-multiplier: 2;
+      --v-theme-on-surface-variant: 66, 66, 66;
+      --v-theme-primary: 33, 150, 243;
+      --v-theme-primary-overlay-multiplier: 2;
+      --v-theme-primary-darken-1: 39, 124, 193;
+      --v-theme-primary-darken-1-overlay-multiplier: 2;
+      --v-theme-secondary: 84, 182, 178;
+      --v-theme-secondary-overlay-multiplier: 2;
+      --v-theme-secondary-darken-1: 72, 169, 166;
+      --v-theme-secondary-darken-1-overlay-multiplier: 2;
+      --v-theme-error: 207, 102, 121;
+      --v-theme-error-overlay-multiplier: 2;
+      --v-theme-info: 33, 150, 243;
+      --v-theme-info-overlay-multiplier: 2;
+      --v-theme-success: 76, 175, 80;
+      --v-theme-success-overlay-multiplier: 2;
+      --v-theme-warning: 251, 140, 0;
+      --v-theme-warning-overlay-multiplier: 2;
+      --v-theme-on-background: 255, 255, 255;
+      --v-theme-on-surface: 255, 255, 255;
+      --v-theme-on-surface-bright: 0, 0, 0;
+      --v-theme-on-primary: 255, 255, 255;
+      --v-theme-on-primary-darken-1: 255, 255, 255;
+      --v-theme-on-secondary: 255, 255, 255;
+      --v-theme-on-secondary-darken-1: 255, 255, 255;
+      --v-theme-on-error: 255, 255, 255;
+      --v-theme-on-info: 255, 255, 255;
+      --v-theme-on-success: 255, 255, 255;
+      --v-theme-on-warning: 255, 255, 255;
+      --v-border-color: 255, 255, 255;
+      --v-border-opacity: 0.12;
+      --v-high-emphasis-opacity: 1;
+      --v-medium-emphasis-opacity: 0.7;
+      --v-disabled-opacity: 0.5;
+      --v-idle-opacity: 0.1;
+      --v-hover-opacity: 0.04;
+      --v-focus-opacity: 0.12;
+      --v-selected-opacity: 0.08;
+      --v-activated-opacity: 0.12;
+      --v-pressed-opacity: 0.16;
+      --v-dragged-opacity: 0.08;
+      --v-theme-kbd: 33, 37, 41;
+      --v-theme-on-kbd: 255, 255, 255;
+      --v-theme-code: 52, 52, 52;
+      --v-theme-on-code: 204, 204, 204;
+    }
+
+    .bg-background {
+      --v-theme-overlay-multiplier: var(--v-theme-background-overlay-multiplier);
+      background-color: rgb(var(--v-theme-background)) !important;
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+
+    .bg-surface {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface)) !important;
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+
+    .bg-surface-bright {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-bright-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-bright)) !important;
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+
+    .bg-surface-variant {
+      --v-theme-overlay-multiplier: var(--v-theme-surface-variant-overlay-multiplier);
+      background-color: rgb(var(--v-theme-surface-variant)) !important;
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+
+    .bg-primary {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+
+    .bg-primary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-primary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-primary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+
+    .bg-secondary {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary)) !important;
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+
+    .bg-secondary-darken-1 {
+      --v-theme-overlay-multiplier: var(--v-theme-secondary-darken-1-overlay-multiplier);
+      background-color: rgb(var(--v-theme-secondary-darken-1)) !important;
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+
+    .bg-error {
+      --v-theme-overlay-multiplier: var(--v-theme-error-overlay-multiplier);
+      background-color: rgb(var(--v-theme-error)) !important;
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+
+    .bg-info {
+      --v-theme-overlay-multiplier: var(--v-theme-info-overlay-multiplier);
+      background-color: rgb(var(--v-theme-info)) !important;
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+
+    .bg-success {
+      --v-theme-overlay-multiplier: var(--v-theme-success-overlay-multiplier);
+      background-color: rgb(var(--v-theme-success)) !important;
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+
+    .bg-warning {
+      --v-theme-overlay-multiplier: var(--v-theme-warning-overlay-multiplier);
+      background-color: rgb(var(--v-theme-warning)) !important;
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+
+    .text-background {
+      color: rgb(var(--v-theme-background)) !important;
+    }
+
+    .border-background {
+      --v-border-color: var(--v-theme-background);
+    }
+
+    .text-surface {
+      color: rgb(var(--v-theme-surface)) !important;
+    }
+
+    .border-surface {
+      --v-border-color: var(--v-theme-surface);
+    }
+
+    .text-surface-bright {
+      color: rgb(var(--v-theme-surface-bright)) !important;
+    }
+
+    .border-surface-bright {
+      --v-border-color: var(--v-theme-surface-bright);
+    }
+
+    .text-surface-variant {
+      color: rgb(var(--v-theme-surface-variant)) !important;
+    }
+
+    .border-surface-variant {
+      --v-border-color: var(--v-theme-surface-variant);
+    }
+
+    .on-surface-variant {
+      color: rgb(var(--v-theme-on-surface-variant)) !important;
+    }
+
+    .text-primary {
+      color: rgb(var(--v-theme-primary)) !important;
+    }
+
+    .border-primary {
+      --v-border-color: var(--v-theme-primary);
+    }
+
+    .text-primary-darken-1 {
+      color: rgb(var(--v-theme-primary-darken-1)) !important;
+    }
+
+    .border-primary-darken-1 {
+      --v-border-color: var(--v-theme-primary-darken-1);
+    }
+
+    .text-secondary {
+      color: rgb(var(--v-theme-secondary)) !important;
+    }
+
+    .border-secondary {
+      --v-border-color: var(--v-theme-secondary);
+    }
+
+    .text-secondary-darken-1 {
+      color: rgb(var(--v-theme-secondary-darken-1)) !important;
+    }
+
+    .border-secondary-darken-1 {
+      --v-border-color: var(--v-theme-secondary-darken-1);
+    }
+
+    .text-error {
+      color: rgb(var(--v-theme-error)) !important;
+    }
+
+    .border-error {
+      --v-border-color: var(--v-theme-error);
+    }
+
+    .text-info {
+      color: rgb(var(--v-theme-info)) !important;
+    }
+
+    .border-info {
+      --v-border-color: var(--v-theme-info);
+    }
+
+    .text-success {
+      color: rgb(var(--v-theme-success)) !important;
+    }
+
+    .border-success {
+      --v-border-color: var(--v-theme-success);
+    }
+
+    .text-warning {
+      color: rgb(var(--v-theme-warning)) !important;
+    }
+
+    .border-warning {
+      --v-border-color: var(--v-theme-warning);
+    }
+
+    .on-background {
+      color: rgb(var(--v-theme-on-background)) !important;
+    }
+
+    .on-surface {
+      color: rgb(var(--v-theme-on-surface)) !important;
+    }
+
+    .on-surface-bright {
+      color: rgb(var(--v-theme-on-surface-bright)) !important;
+    }
+
+    .on-primary {
+      color: rgb(var(--v-theme-on-primary)) !important;
+    }
+
+    .on-primary-darken-1 {
+      color: rgb(var(--v-theme-on-primary-darken-1)) !important;
+    }
+
+    .on-secondary {
+      color: rgb(var(--v-theme-on-secondary)) !important;
+    }
+
+    .on-secondary-darken-1 {
+      color: rgb(var(--v-theme-on-secondary-darken-1)) !important;
+    }
+
+    .on-error {
+      color: rgb(var(--v-theme-on-error)) !important;
+    }
+
+    .on-info {
+      color: rgb(var(--v-theme-on-info)) !important;
+    }
+
+    .on-success {
+      color: rgb(var(--v-theme-on-success)) !important;
+    }
+
+    .on-warning {
+      color: rgb(var(--v-theme-on-warning)) !important;
+    }
+  </style>
+  <link rel="canonical" href="https://www.jw-marketing.co.kr/">
+  <meta name="naver-site-verification" content="c1125c30ff54964fe1f87c44f88c5d544477634d">
+  <meta name="google-site-verification" content="qSOdePQ2P6BaXqqUpFGV-9jcqoAv1dEnvKFXoGvllHo">
+  <link rel="stylesheet" href="./css/style.css">
+
+
+  <!-- <script src="https://www.googletagmanager.com/gtag/js?id=G-VL0VEGLM60" defer></script>
+  <script>  window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VL0VEGLM60');</script> -->
+  <meta name="description"
+    content="JW마케팅 순위 검색 서비스, 무제한 무료 제공! JW마케팅과 함께 경쟁에서 앞서가고, 비용 부담 없이 고객을 사로잡으세요. 키워드 검색 ,홍보마케팅, 블로그관리대행 , 검색 광고 , 병원마케팅 , 병원광고, SEO , 웹사이트 상위노출, 플레이스 상위노출 , 바이럴마케팅 , 검색엔진 최적화">
+  <meta name="keywords" content="마케팅, 키워드 검색량 조회,검색엔진 최적화,백링크,플레이스 순위,병원 마케팅,플레이스 상위노출,웹사이트 상위노출,상위노출 업체,키워드분석">
+
+
+
+
+
+
+  <!-- 
+  <link rel="stylesheet" href="/_nuxt/entry.Dcr7Ssjt.css">
+  <link rel="stylesheet" href="/_nuxt/index.B0a9OMnn.css">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/Di6I4_Kl.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/_L79Zp-S.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/B8dISNbw.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/Cn2uVju1.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DiLVA1TM.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/CNGFlh_p.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/CtRPN-tv.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BAn6b242.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DQ_L3RiF.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/aW66Tbv5.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/COXsAi05.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/ltMdS-79.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BGfXowyW.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/DZHPpzpo.js">
+  <link rel="modulepreload" as="script" crossorigin href="/_nuxt/BmjRO_Ln.js">
+  <link rel="prefetch" as="script" crossorigin href="/_nuxt/BAw1VOW_.js">
+  <link rel="prefetch" as="script" crossorigin href="/_nuxt/DiBBw_W2.js">
+  <script type="module" src="/_nuxt/Di6I4_Kl.js" crossorigin></script> -->
+
+  <script src="./js/main.js"></script>
+
+  <script>
+    "use strict";
+
+    (() => {
+      const a = window,
+        e = document.documentElement,
+        m = ["dark", "light"],
+        c = window && window.localStorage && window.localStorage.getItem && window.localStorage.getItem("nuxt-color-mode") || "light";
+
+      let n = c === "system" ? d() : c;
+      const l = e.getAttribute("data-color-mode-forced");
+      if (l) {
+        n = l;
+      }
+
+      i(n);
+
+      a["__NUXT_COLOR_MODE__"] = {
+        preference: c,
+        value: n,
+        getColorScheme: d,
+        addColorScheme: i,
+        removeColorScheme: f
+      };
+
+      function i(o) {
+        const t = "" + o + "",
+          s = "";
+
+        if (e.classList) {
+          e.classList.add(t);
+        } else {
+          e.className += " " + t;
+        }
+
+        if (s) {
+          e.setAttribute("data-" + s, o);
+        }
+      }
+
+      function f(o) {
+        const t = "" + o + "",
+          s = "";
+
+        if (e.classList) {
+          e.classList.remove(t);
+        } else {
+          e.className = e.className.replace(new RegExp(t, "g"), "");
+        }
+
+        if (s) {
+          e.removeAttribute("data-" + s);
+        }
+      }
+
+      function r(o) {
+        return a.matchMedia("(prefers-color-scheme" + o + ")");
+      }
+
+      function d() {
+        if (a.matchMedia && r("").media !== "not all") {
+          for (const o of m) {
+            if (r(":" + o).matches) {
+              return o;
+            }
+          }
+        }
+        return "light";
+      }
+    })();
+  </script>
+
+
+</head>
+
+<body>
+  <div id="__nuxt">
+    <div class="flex flex-col h-screen">
+      <nav data-headlessui-state="" class="bg-white border-b fixed top-0 z-50 w-screen">
+        <div class="hidden bg-[#0F52FF] h-9 2xl:flex xl:flex lg:flex items-center justify-center">
+          <p class="font-Pretendard text-white font-semibold text-base"> 상위권 진입,유지 못할 경우 <span
+              class="text-[#FFEF87]">&nbsp;100% 환불보장제도!&nbsp;</span> 365일 24시간 상담 가능 </p>
+        </div>
+        <div class="px-4 sm:px-6 lg:px-8">
+          <div class="flex h-20 justify-between">
+            <div class="flex">
+              <div class="-ml-2 mr-2 flex items-center xl:hidden"><button id="headlessui-disclosure-button-31"
+                  type="button" aria-expanded="false" data-headlessui-state=""
+                  class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-topclick-brand"><span
+                    class="sr-only">Open main menu</span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                    class="block h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                  </svg></button></div>
+              <div class="flex flex-shrink-0 items-center"><a href="/"><img src="./img/logo_jw.svg"
+                    onerror="this.setAttribute('data-error', 1)" alt="Company logo" data-nuxt-img=""></a></div>
+            </div>
+            <div class="hidden xl:justify-center xl:flex xl:space-x-8 font-Pretendard">
+              <!--[--><a href="/search/volume"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-검색량
+                조회</a><a href="/search/web"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-웹
+                순위</a><a href="/search/shop"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-쇼핑
+                순위</a><a href="/search/place"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-플레이스
+                순위</a><a href="/search/view"
+                class="inline-flex items-center border-b-2 px-1 pt-1 lg:text-base font-bold border-transparent text-gray-900 hover:border-indigo-500 hover:text-black">N-View
+                순위</a>
+              <!--]-->
+              <!---->
+              <!---->
+            </div>
+            <div class="hidden sm:flex sm:items-center">
+              <div class="flex flex-row font-Pretendard"><a href="/auth/login"><button type="button"
+                    class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-base gap-x-2.5 p-2.5 text-gray-500 dark:text-gray-400 bg-gray-50 hover:bg-gray-100 disabled:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-900 dark:disabled:bg-gray-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-500 dark:focus-visible:ring-gray-400 inline-flex items-center px-4">
+                    <!--[-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--[--> 로그인 <span class="i-heroicons-user w-5 h-5"></span>
+                    <!--]-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--]-->
+                  </button></a>
+                <!---->
+              </div>
+              <div class="flex-shrink-0 font-Pretendard"><a class="px-4" href="/service"><button type="button"
+                    class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full text-base gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 inline-flex items-center px-5">
+                    <!--[-->
+                    <!--[--><span class="i-heroicons-shopping-cart flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                    <!--]-->
+                    <!--[--> 상품안내
+                    <!--]-->
+                    <!--[-->
+                    <!---->
+                    <!--]-->
+                    <!--]-->
+                  </button></a></div>
+            </div>
+          </div>
+        </div>
+        <!---->
+      </nav>
+      <!---->
+      <!---->
+      <main class="flex-1">
+        <div class="bg-white font-Pretendard leading-normal tracking-normal">
+          <!--[-->
+          <!--[-->
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl mt-32 font-Pretendard">
+            <!--[-->
+            <nav class="flex border-b pb-2" aria-label="Breadcrumb">
+              <ol role="list" class="flex items-center space-x-4">
+                <li>
+                  <div><a href="/" class="text-gray-400 hover:text-gray-500"><svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                        class="h-5 w-5 flex-shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25">
+                        </path>
+                      </svg><span class="sr-only">Home</span></a></div>
+                </li>
+                <!--[-->
+                <li>
+                  <div class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                      class="h-5 w-5 flex-shrink-0 text-gray-400">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+                    </svg><a href="/service" class="ml-4 text-sm font-bold text-gray-500 hover:text-gray-700"
+                      aria-current="page">상품안내</a></div>
+                </li>
+                <!--]-->
+              </ol>
+            </nav>
+            <!--]-->
+          </div>
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-10 font-Pretendard">
+            <!--[-->
+            <h1
+              class="flex items-center text-center justify-center text-black lg:text-4xl text-2xl font-extrabold font-Pretendard">
+              강력한 순위상승 ‘JW 마케팅’ 상품안내 <span
+                class="i-heroicons-shopping-cart lg:block hidden w-8 h-8 font-bold ml-2 text-blue-500"></span></h1>
+            <h2 class="mt-5 text-center text-gray-700 lg:text-base text-base font-normal" style="white-space:pre-line;">
+              JW 마케팅은 업계 최고의 개발자 · 마케터 · 기획자가 365일 연중무휴 실시간으로 대응합니다.</h2>
+            <!--]-->
+          </div>
+          <div class="py-10 lg:mt-8">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl">
+              <!--[-->
+              <div
+                class="lg:flex lg:justify-between lg:mx-0 lg:max-w-none lg:grid-cols-4 lg:gap-6 isolate mx-auto grid max-w-md grid-cols-1 gap-y-8">
+                <!--[-->
+                <div
+                  class="w-full h-full ring-1 rounded-lg p-6 font-Pretendard transform transition duration-500 hover:scale-110 shadow-xl shadow-gray-100/50 hover:shadow-gray-200/50 bg-blue-50 ring-blue-400">
+                  <div class="flex justify-between">
+                    <div><span
+                        class="rounded-full px-2 py-1 dark:bg-primary-400 dark:text-gray-900 w-24 h-8 bg-white shadow-md lg:font-bold font-semibold text-base flex items-center justify-center text-violet-500">
+                        <!--[-->상위보장
+                        <!--]-->
+                      </span></div><img class="w-6 h-6" src="./img/medal-star(bl).svg" alt="아이콘">
+                  </div>
+                  <div class="flex flex-col mt-5 gap-x-10">
+                    <div class="text-blue-950 lg:font-extrabold font-bold text-2xl">상위노출 보장</div>
+                    <div class="mt-3 lg:font-extrabold font-bold text-gray-700 text-lg mb-3 min-h-[56px]">N웹 · N플레이스
+                      1페이지 노출보장형 상품</div>
+                    <!--[-->
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 키워드 설정· 관리자 페이지 제공
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-state-1 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 월간 약 1,500방문수
+                        UP</li>
+                    </ul>
+                    <!--]-->
+                    <div class="mt-7 flex items-center gap-3">
+                      <div class="text-violet-500 font-extrabold text-2xl flex items-center">빠른견적문의</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-center"><button type="submit"
+                      class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 items-center px-7 flex justify-between w-full h-14 mt-7 text-lg">
+                      <!--[-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--[-->신청하기
+                      <!--]-->
+                      <!--[--><span class="i-heroicons-arrow-right flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                      <!--]-->
+                      <!--]-->
+                    </button></div>
+                </div>
+                <div
+                  class="w-full h-full ring-1 rounded-lg p-6 font-Pretendard transform transition duration-500 hover:scale-110 shadow-md hover:shadow-xl hover:shadow-gray-200/50 bg-slate-50 ring-slate-50">
+                  <div class="flex justify-between">
+                    <div><span
+                        class="rounded-full px-2 py-1 dark:bg-primary-400 dark:text-gray-900 w-24 h-8 bg-white shadow-md lg:font-bold font-semibold text-base flex items-center justify-center text-blue-500">
+                        <!--[-->슬롯임대
+                        <!--]-->
+                      </span></div><img class="w-6 h-6" src="./img/convert-3d-cube.svg" alt="아이콘">
+                  </div>
+                  <div class="flex flex-col mt-5 gap-x-10">
+                    <div class="text-blue-950 lg:font-extrabold font-bold text-2xl">N플레이스</div>
+                    <div class="mt-3 lg:font-extrabold font-bold text-gray-700 text-lg mb-3 min-h-[56px]">N플레이스 방문수 상승
+                    </div>
+                    <!--[-->
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 키워드 설정· 관리자 페이지 제공
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-state-1 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 월간 약 1,500방문수
+                        UP</li>
+                    </ul>
+                    <!--]-->
+                    <div class="mt-7 flex items-center gap-3"><span
+                        class="inline-flex items-center rounded-md px-2 py-1 bg-violet-500 dark:bg-violet-400 text-white dark:text-gray-900 font-bold text-base">
+                        <!--[-->월
+                        <!--]-->
+                      </span>
+                      <p class="text-violet-500 font-extrabold text-2xl flex items-center">80,000<span
+                          class="text-topclick-gray-2 font-medium ml-2">~원</span></p>
+                    </div>
+                  </div>
+                  <div class="flex justify-center"><button type="submit"
+                      class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 items-center px-7 flex justify-between w-full h-14 mt-7 text-lg">
+                      <!--[-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--[-->신청하기
+                      <!--]-->
+                      <!--[--><span class="i-heroicons-arrow-right flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                      <!--]-->
+                      <!--]-->
+                    </button></div>
+                </div>
+                <div
+                  class="w-full h-full ring-1 rounded-lg p-6 font-Pretendard transform transition duration-500 hover:scale-110 shadow-md hover:shadow-xl hover:shadow-gray-200/50 bg-slate-50 ring-slate-50">
+                  <div class="flex justify-between">
+                    <div><span
+                        class="rounded-full px-2 py-1 dark:bg-primary-400 dark:text-gray-900 w-24 h-8 bg-white shadow-md lg:font-bold font-semibold text-base flex items-center justify-center text-blue-500">
+                        <!--[-->슬롯임대
+                        <!--]-->
+                      </span></div><img class="w-6 h-6" src="./img/convert-3d-cube.svg" alt="아이콘">
+                  </div>
+                  <div class="flex flex-col mt-5 gap-x-10">
+                    <div class="text-blue-950 lg:font-extrabold font-bold text-2xl">N웹</div>
+                    <div class="mt-3 lg:font-extrabold font-bold text-gray-700 text-lg mb-3 min-h-[56px]">N포털 웹사이트 방문수
+                      상승</div>
+                    <!--[-->
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 키워드 설정· 관리자 페이지 제공
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-state-1 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 월간 약 1,500방문수
+                        UP</li>
+                    </ul>
+                    <!--]-->
+                    <div class="mt-7 flex items-center gap-3"><span
+                        class="inline-flex items-center rounded-md px-2 py-1 bg-violet-500 dark:bg-violet-400 text-white dark:text-gray-900 font-bold text-base">
+                        <!--[-->월
+                        <!--]-->
+                      </span>
+                      <p class="text-violet-500 font-extrabold text-2xl flex items-center">80,000<span
+                          class="text-topclick-gray-2 font-medium ml-2">~원</span></p>
+                    </div>
+                  </div>
+                  <div class="flex justify-center"><button type="submit"
+                      class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 items-center px-7 flex justify-between w-full h-14 mt-7 text-lg">
+                      <!--[-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--[-->신청하기
+                      <!--]-->
+                      <!--[--><span class="i-heroicons-arrow-right flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                      <!--]-->
+                      <!--]-->
+                    </button></div>
+                </div>
+                <div
+                  class="w-full h-full ring-1 rounded-lg p-6 font-Pretendard transform transition duration-500 hover:scale-110 shadow-md hover:shadow-xl hover:shadow-gray-200/50 bg-slate-50 ring-slate-50">
+                  <div class="flex justify-between">
+                    <div><span
+                        class="rounded-full px-2 py-1 dark:bg-primary-400 dark:text-gray-900 w-24 h-8 bg-white shadow-md lg:font-bold font-semibold text-base flex items-center justify-center text-blue-500">
+                        <!--[-->슬롯임대
+                        <!--]-->
+                      </span></div><img class="w-6 h-6" src="./img/convert-3d-cube.svg" alt="아이콘">
+                  </div>
+                  <div class="flex flex-col mt-5 gap-x-10">
+                    <div class="text-blue-950 lg:font-extrabold font-bold text-2xl">N쇼핑</div>
+                    <div class="mt-3 lg:font-extrabold font-bold text-gray-700 text-lg mb-3 min-h-[56px]">N쇼핑 상품 유입수 상승
+                    </div>
+                    <!--[-->
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 키워드 설정· 관리자 페이지 제공
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-gray-2 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="text-topclick-state-1 font-medium text-base flex"><span
+                          class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 월간 약 1,500방문수
+                        UP</li>
+                    </ul>
+                    <!--]-->
+                    <div class="mt-7 flex items-center gap-3"><span
+                        class="inline-flex items-center rounded-md px-2 py-1 bg-violet-500 dark:bg-violet-400 text-white dark:text-gray-900 font-bold text-base">
+                        <!--[-->월
+                        <!--]-->
+                      </span>
+                      <p class="text-violet-500 font-extrabold text-2xl flex items-center">80,000<span
+                          class="text-topclick-gray-2 font-medium ml-2">~원</span></p>
+                    </div>
+                  </div>
+                  <div class="flex justify-center"><button type="submit"
+                      class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium rounded-full gap-x-2.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-500 dark:bg-blue-400 dark:hover:bg-blue-500 dark:disabled:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-400 items-center px-7 flex justify-between w-full h-14 mt-7 text-lg">
+                      <!--[-->
+                      <!--[-->
+                      <!---->
+                      <!--]-->
+                      <!--[-->신청하기
+                      <!--]-->
+                      <!--[--><span class="i-heroicons-arrow-right flex-shrink-0 h-6 w-6" aria-hidden="true"></span>
+                      <!--]-->
+                      <!--]-->
+                    </button></div>
+                </div>
+                <!--]-->
+              </div>
+              <!--]-->
+            </div>
+          </div>
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl my-8 grid lg:grid-cols-2 gap-4 font-Pretendard">
+            <!--[-->
+            <!--[-->
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">백링크 작업
+                    (N포털+G포털)</div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 원하는 검색 키워드 설정 가능
+                          (기본 3개)</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 작업기간 : 약 30일, 평균
+                          2~4주 내외 효과</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-state-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 일 20개 등록
+                        </li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        100,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-violet-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->프리미엄
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">백링크 작업
+                    (N포털+G포털)</div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 원하는 검색 키워드 설정 가능
+                          (기본 5개)</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 작업기간 : 약 30일, 평균
+                          2~4주 내외 효과</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-state-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 일 80개 등록
+                        </li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        300,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">방문체류시간 UP
+                  </div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 체류시간을 높여 상품·매장
+                          품질지수 UP</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 월간 약 3,000 방문수 UP
+                          + 평균체류시간 2분</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        400,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">
+                    N-블로그(View)상위</div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> N포털 View 탭 검색결과
+                          1페이지 노출</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 블로그 포스팅 n건 + 이미지
+                          nn건 게재</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        400,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">N웹 이미지 상위
+                  </div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 키워드 설정· 관리자 페이지 제공
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 실 사용자와 동일한 방문 로직
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-state-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 상품 1개당 월간 약
+                          1,500방문수 UP</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        100,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">N지식인 상위
+                  </div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> N포털 지식인 탭 검색결과
+                          1페이지 노출</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 지식인 포스팅 n건</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        400,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-blue-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->기본형
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">SEO 최적화 및
+                    컨설팅</div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 웹사이트 메인 및 서브메뉴 SEO
+                          컨설팅</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 20년차 검색엔진 전문 개발자
+                          컨설팅 가이드</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-state-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> SEO 최적화는 검색엔진 상위노출
+                          필수조건!</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">
+                        500,000<span class="font-medium text-2xl text-topclick-gray-2 ml-2"> 원</span></div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="col-span-2 grid-flow-row rounded-lg bg-white h-full p-8 ring-1 ring-gray-200 xl:p-7 hover:bg-slate-50 hover:shadow-xl">
+                <div class="col-span-2 lg:flex gap-3"><span
+                    class="inline-flex items-center rounded-full dark:bg-primary-400 dark:text-gray-900 text-violet-500 w-auto h-8 lg:font-bold font-semibold text-base p-4 bg-white shadow-md">
+                    <!--[-->프리미엄
+                    <!--]-->
+                  </span>
+                  <div class="text-blue-950 col-span-2 lg:mt-0 mt-3 flex lg:font-extrabold font-bold text-2xl">SEO 최적화 및
+                    컨설팅</div>
+                </div>
+                <div class="lg:mt-3 mt-4 border-b border-gray-200"></div>
+                <div class="col-span-2">
+                  <div class="grid lg:grid-cols-2 grid-cols-1">
+                    <div class="grid-flow-col mt-8">
+                      <!--[-->
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 기본형 SEO 컨설팅 + 웹사이트
+                          상위보장</li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-gray-2 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 진입하지 못할 경우 환불 보장
+                        </li>
+                      </ul>
+                      <ul>
+                        <li class="text-topclick-state-1 font-medium flex"><span
+                            class="i-heroicons-check-circle-solid h-5 w-5 mr-2 text-blue-500"></span> 초기진입 후 월 유지비용 할인 +
+                          무상AS제공</li>
+                      </ul>
+                      <!--]-->
+                    </div>
+                    <div class="mt-8">
+                      <div class="text-violet-500 flex lg:justify-center justify-start font-extrabold text-2xl">빠른견적문의
+                      </div>
+                      <div class="flex justify-center items-end"><button type="button"
+                          class="focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 rounded-lg gap-x-1.5 py-1.5 text-blue-500 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 disabled:bg-blue-50 dark:bg-blue-950 dark:hover:bg-blue-900 dark:disabled:bg-blue-950 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 items-center px-7 flex justify-center w-full lg:w-40 lg:h-10 h-12 mt-3 text-md font-semibold">
+                          <!--[-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--[-->신청하기
+                          <!--]-->
+                          <!--[-->
+                          <!---->
+                          <!--]-->
+                          <!--]-->
+                        </button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--]-->
+            <!--]-->
+          </div>
+          <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl my-8 relative">
+            <!--[--><a href="https://pf.kakao.com/_xluXtG" rel="noopener noreferrer" target="_blank"
+              style="background-image:url('./img/servicebg.png');"
+              class="rounded-lg bg-cover bg-center flex flex-col lg:flex-row justify-between items-center">
+              <div class="mx-auto lg:mt-0 mt-10">
+                <div class="text-white text-4xl font-GmarketSans font-bold leading-9">파트너 · 협력사 모집</div>
+                <div class="mt-2 text-gray-900 font-Pretendard font-bold leading-normal lg:text-left text-center">JW
+                  마케팅과 함께 할 총판· 대행사를 모집합니다</div>
+              </div>
+              <div class="lg:block hidden mx-auto"><span
+                  class="inline-flex items-center font-medium rounded-full text-xs py-1 dark:bg-teal-400 text-white dark:text-gray-900 bg-topclick-state-3 mb-4 px-4">
+                  <!--[-->JW 마케팅만의 강점
+                  <!--]-->
+                </span>
+                <div class="text-white text-lg font-Pretendard font-semibold leading-7">자체서버보유 -&gt; 업계 최저 마진율</div>
+                <div class="text-white text-lg font-Pretendard font-semibold leading-7">전문개발자 상시근무 -&gt; 우수한 로직성능과 빠른대응
+                </div>
+                <div class="text-white text-lg font-Pretendard font-semibold leading-7">영업팀 · CS팀 -&gt; 365일 24시간 응대 가능
+                </div>
+              </div><img src="./img/service.svg" onerror="this.setAttribute('data-error', 1)" data-nuxt-img=""
+                class="mt-8 mr-8">
+            </a>
+            <!--]-->
+          </div>
+          <!--]-->
+          <!--]-->
+        </div>
+      </main>
+      <!--[-->
+      <!--[--><a
+        class="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 font-medium text-sm gap-x-1.5 px-2.5 py-1.5 text-white dark:text-gray-900 disabled:bg-primary-500 dark:bg-primary-400 dark:hover:bg-primary-500 dark:disabled:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400 w-16 h-16 right-0 lg:bottom-8 bottom-5 fixed rounded-full lg:mr-8 mr-4 flex items-center justify-center bg-[#fae100] hover:bg-[#EAD200] shadow-md z-10"
+        href="https://open.kakao.com/o/stgDHTBg" rel="noopener noreferrer" target="_black">
+        <!--[-->
+        <!--[-->
+        <!---->
+        <!--]-->
+        <!--[--><img class="w-10 h-10" src="./img/kakao_logo.svg" alt="카카오오픈채팅">
+        <!--]-->
+        <!--[-->
+        <!---->
+        <!--]-->
+        <!--]-->
+      </a>
+      <!--]-->
+      <!---->
+      <footer class="bg-topclick-state-BOTTOM">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <!--[-->
+          <div class="mt-4 mb-4">
+            <div class="items-center">
+              <div class="flex flex-col">
+                <p class="text-sm text-center text-white md:mt-0">JW MARKETING © Copyright 2024. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!--]-->
+        </div>
+      </footer>
+      <!--]-->
+    </div>
+  </div>
+  <div id="teleports"></div>
+  <script type="application/json" id="__NUXT_DATA__"
+    data-ssr="true">[["Reactive",1],{"data":2,"state":131,"once":138,"_errors":139,"serverRendered":42,"path":140,"pinia":141},{"EqoD3ytyQc":3,"XF4Ro8A8Ta":34,"NBHZHHlhzi":46,"eXLk5fKhEG":122},{"status":4,"data":5},"success",[6,14,19,24,29],{"seq":7,"domain":8,"name":9,"value":10,"insert_dt":11,"update_dt":11,"use_yn":12,"memo":13},10,"www.jw-marketing.co.kr","domain","\"domain\" : \"www.jw-marketing.co.kr\"","2024-04-03T11:54:07.000Z",1,null,{"seq":15,"domain":8,"name":16,"value":17,"insert_dt":18,"update_dt":18,"use_yn":12,"memo":13},9,"layouts","\"layouts\": {\"default\": \"default\"}","2024-04-03T11:54:06.000Z",{"seq":20,"domain":8,"name":21,"value":22,"insert_dt":23,"update_dt":23,"use_yn":12,"memo":13},8,"logo","\"logo\": { \"site\": \"jw\"}","2024-04-03T11:54:05.000Z",{"seq":25,"domain":8,"name":26,"value":27,"insert_dt":28,"update_dt":28,"use_yn":12,"memo":13},7,"page","\"page\": {\"n\": {\"volume\": {\"title\": \"N-검색량 조회\",\"description\": \"검색 결과는 1개월 기준입니다.\"},\"web\": {\"title\": \"N-웹 순위 조회\",\"description\": \"\"},\"shop\": {\"title\": \"N-쇼핑 순위 조회\",\"description\": \"\"},\"place\": {\"title\": \"N-플레이스 순위 조회\",\"description\": \"\"},\"view\": {\"title\": \"N-View 순위 조회\",\"description\": \"\"}},\"service\": {\"title\": \"강력한 순위상승 ‘JW 마케팅’ 상품안내\",\"description\": \"JW 마케팅은 업계 최고의 개발자 · 마케터 · 기획자가 365일 연중무휴 실시간으로 대응합니다.\"},\"apply\": {\"title\": \"강력한 순위상승 ‘JW 마케팅’ 상품 신청하기\",\"description\": \"본 페이지에서는 결제하지 않으셔도 됩니다. 신청하신 정보를 바탕으로 JW 마케팅 담당자가 빠르고 정확하게 안내해 드립니다.\"}}","2024-04-03T11:54:04.000Z",{"seq":30,"domain":8,"name":31,"value":32,"insert_dt":33,"update_dt":33,"use_yn":12,"memo":13},6,"theme","\"theme\": { \"primary\": \"blue\", \"accent\": \"violet\" }","2024-04-03T11:54:03.000Z",{"status":4,"data":35},[36,43],{"domain":8,"code_id":37,"gr_id":38,"code_name":37,"code_data_1":39,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},"김상만","open_chat_adm","https://open.kakao.com/me/jw3",0,"2024-05-30T17:50:07.000Z",true,{"domain":8,"code_id":44,"gr_id":38,"code_name":44,"code_data_1":45,"code_data_2":13,"code_data_3":13,"code_data_4":13,"code_data_5":13,"img_src_1":13,"img_src_2":13,"sort_order":40,"insert_dt":41,"update_dt":41,"use_yn":42,"memo":13},"김은석","https://open.kakao.com/o/stgDHTBg",{"status":4,"data":47},[48,58,67,72,77,86,91,99,104,109,113,119],{"id":49,"domain":8,"main_type":50,"sub_type":51,"sub_type_name":52,"sort":12,"title":53,"icon":54,"desc":55,"contents":56,"price":57},14,"horizontal","top","상위보장","상위노출 보장","/medal-star(bl).svg","N웹 · N플레이스 1페이지 노출보장형 상품","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 키워드 설정· 관리자 페이지 제공\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 실 사용자와 동일한 방문 로직\" }, { \"color\":\"text-topclick-state-1\", \"content\": \" 상품 1개당 월간 약 1,500방문수 UP\" }]}","빠른견적문의",{"id":59,"domain":8,"main_type":50,"sub_type":60,"sub_type_name":61,"sort":62,"title":63,"icon":64,"desc":65,"contents":56,"price":66},17,"slot","슬롯임대",2,"N플레이스","./img/convert-3d-cube.svg","N플레이스 방문수 상승","80000",{"id":68,"domain":8,"main_type":50,"sub_type":60,"sub_type_name":61,"sort":69,"title":70,"icon":64,"desc":71,"contents":56,"price":66},13,3,"N웹","N포털 웹사이트 방문수 상승",{"id":73,"domain":8,"main_type":50,"sub_type":60,"sub_type_name":61,"sort":74,"title":75,"icon":64,"desc":76,"contents":56,"price":66},16,4,"N쇼핑","N쇼핑 상품 유입수 상승",{"id":78,"domain":8,"main_type":79,"sub_type":80,"sub_type_name":81,"sort":12,"title":82,"icon":54,"desc":83,"contents":84,"price":85},15,"vertical","backlink","백링크","백링크 작업 (N포털+G포털)","기본형","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 원하는 검색 키워드 설정 가능 (기본 3개)\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 작업기간 : 약 30일, 평균 2~4주 내외 효과\" }, { \"color\":\"text-topclick-state-1\", \"content\": \" 상품 1개당 일 20개 등록\" }]}","100000",{"id":87,"domain":8,"main_type":79,"sub_type":80,"sub_type_name":81,"sort":62,"title":82,"icon":54,"desc":88,"contents":89,"price":90},20,"프리미엄","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 원하는 검색 키워드 설정 가능 (기본 5개)\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 작업기간 : 약 30일, 평균 2~4주 내외 효과\" }, { \"color\":\"text-topclick-state-1\", \"content\": \" 상품 1개당 일 80개 등록\" }]}","300000",{"id":92,"domain":8,"main_type":79,"sub_type":93,"sub_type_name":94,"sort":69,"title":95,"icon":96,"desc":83,"contents":97,"price":98},22,"blog","체류시간","방문체류시간 UP","/global-edit(blue).svg","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 체류시간을 높여 상품·매장 품질지수 UP\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 실 사용자와 동일한 방문 로직\" }, { \"color\":\"text-topclick-gray-1\", \"content\": \" 월간 약 3,000 방문수 UP + 평균체류시간 2분\" }]}","400000",{"id":100,"domain":8,"main_type":79,"sub_type":93,"sub_type_name":101,"sort":74,"title":102,"icon":96,"desc":83,"contents":103,"price":98},19,"블로그상위","N-블로그(View)상위","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" N포털 View 탭 검색결과 1페이지 노출\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 블로그 포스팅 n건 + 이미지 nn건 게재\" }]}",{"id":105,"domain":8,"main_type":79,"sub_type":93,"sub_type_name":106,"sort":107,"title":108,"icon":96,"desc":83,"contents":56,"price":85},21,"N이미지",5,"N웹 이미지 상위",{"id":110,"domain":8,"main_type":79,"sub_type":93,"sub_type_name":101,"sort":30,"title":111,"icon":96,"desc":83,"contents":112,"price":98},18,"N지식인 상위","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" N포털 지식인 탭 검색결과 1페이지 노출\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 지식인 포스팅 n건\" }]}",{"id":114,"domain":8,"main_type":79,"sub_type":80,"sub_type_name":115,"sort":25,"title":116,"icon":54,"desc":83,"contents":117,"price":118},23,"SEO최적화","SEO 최적화 및 컨설팅","{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 웹사이트 메인 및 서브메뉴 SEO 컨설팅\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 20년차 검색엔진 전문 개발자 컨설팅 가이드\" }, { \"color\":\"text-topclick-state-1\", \"content\": \" SEO 최적화는 검색엔진 상위노출 필수조건!\" }]}","500000",{"id":120,"domain":8,"main_type":79,"sub_type":80,"sub_type_name":115,"sort":20,"title":116,"icon":54,"desc":88,"contents":121,"price":57},24,"{\"contents\" :[{ \"color\":\"text-topclick-gray-2\", \"content\": \" 기본형 SEO 컨설팅 + 웹사이트 상위보장\" }, { \"color\":\"text-topclick-gray-2\", \"content\": \" 진입하지 못할 경우 환불 보장\" }, { \"color\":\"text-topclick-state-1\", \"content\": \" 초기진입 후 월 유지비용 할인 + 무상AS제공\" }]}",{"status":4,"data":123},{"id":124,"domain":8,"created_at":125,"url":126,"title":127,"description":128,"keyword":129,"page":130},12,"2024-04-03T15:51:33.000Z","https://www.jw-marketing.co.kr","키워드 검색량 조회, 플레이스 웹사이트 상위 전문ㅣJW마케팅","JW마케팅 순위 검색 서비스, 무제한 무료 제공! JW마케팅과 함께 경쟁에서 앞서가고, 비용 부담 없이 고객을 사로잡으세요. 키워드 검색 ,홍보마케팅, 블로그관리대행 , 검색 광고 , 병원마케팅 , 병원광고, SEO , 웹사이트 상위노출, 플레이스 상위노출 , 바이럴마케팅 , 검색엔진 최적화","마케팅, 키워드 검색량 조회,검색엔진 최적화,백링크,플레이스 순위,병원 마케팅,플레이스 상위노출,웹사이트 상위노출,상위노출 업체,키워드분석","root",{"$sauth:data":13,"$sauth:lastRefreshedAt":132,"$sauth:loading":133,"$scolor-mode":134,"$ssite-config":136},["Date","2024-07-19T05:27:00.476Z"],false,{"preference":135,"value":135,"unknown":42,"forced":133},"light",{"name":8,"url":137},"https://www.jw-marketing.co.kr/",["Set"],{"EqoD3ytyQc":13,"NBHZHHlhzi":13,"XF4Ro8A8Ta":13,"eXLk5fKhEG":13},"/service",{}]</script>
+  <script>window.__NUXT__ = {}; window.__NUXT__.config = { public: { authJs: { baseUrl: "", verifyClientOnEveryRequest: true }, gtag: { id: "", config: {}, initialConsent: true, loadingStrategy: "defer" }, auth: { computed: { origin: "", pathname: "/api/auth", fullBaseUrl: "/api/auth" }, isEnabled: true, session: { enableRefreshPeriodically: false, enableRefreshOnWindowFocus: true }, globalAppMiddleware: { isEnabled: false, allow404WithoutAuth: true, addDefaultCallbackUrl: true }, origin: "/", provider: { type: "authjs", trustHost: false, defaultProvider: "", addDefaultCallbackUrl: true } }, device: { enabled: true, defaultUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.39 Safari/537.36", refreshOnResize: false }, persistedState: { storage: "localStorage", debug: false, cookieOptions: { sameSite: "strict" } } }, app: { baseURL: "/", buildAssetsDir: "/_nuxt/", cdnURL: "" } }</script>
+</body>
+
+<script>
+  // 버튼 요소를 선택합니다.
+  const disclosureButton = document.getElementById('headlessui-disclosure-button-273');
+
+  // 메뉴의 상태를 나타내는 변수를 초기화합니다.
+  let isMenuOpen = false;
+
+  // 버튼에 클릭 이벤트 리스너를 추가합니다.
+  disclosureButton.addEventListener('click', function () {
+    // 메뉴의 상태를 반전시킵니다.
+    isMenuOpen = !isMenuOpen;
+
+    // 버튼의 aria-expanded 속성을 변경하여 스크린 리더 사용자에게 상태를 전달합니다.
+    disclosureButton.setAttribute('aria-expanded', isMenuOpen);
+
+    // 실제 메뉴를 펼치거나 접는 DOM 조작을 수행합니다.
+    // 예를 들어, 메뉴 요소의 display 속성을 변경하여 보이게 하거나 숨길 수 있습니다.
+    // 이 부분은 실제 구현에 따라 달라질 수 있습니다.
+    // 아래는 간단한 예시입니다:
+    const menuElement = document.getElementById('sr-only'); // 실제 메뉴의 ID를 사용해야 합니다.
+    if (isMenuOpen) {
+      menuElement.style.display = 'block'; // 메뉴를 보이게 합니다.
+    } else {
+      menuElement.style.display = 'none'; // 메뉴를 숨깁니다.
+    }
+  });
+</script>
+
+</html>
